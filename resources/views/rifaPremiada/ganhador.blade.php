@@ -1,0 +1,2 @@
+<strong>Ganhador: {{ $ganhador->name }}</strong>
+<a href="{{ $ganhador->ganhadorCotaPremiada($cota) }}" target="_blank" class="btn btn-sm btn-success" style="font-size: 12px;"><i class="fab fa-whatsapp"></i>&nbsp; ENTRAR EM CONTATO</a>
