@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação - Script de Atualização Laravel</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="galaxy">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+        <div class="sun"></div>
+        <div class="moon"></div>
+        <div class="crypto-icons"></div>
+    </div>
+
+    <header>
+        <h1>Documentação - Script de Atualização Laravel</h1>
+        <p>Este documento explica como utilizar o script para atualizar o seu projeto Laravel, corrigir erros comuns e automatizar o processo de migração para versões mais recentes do Laravel.</p>
+    </header>
+
+    <nav>
+        <h2>Sumário</h2>
+        <ul>
+            <li><a href="#estrutura">Estrutura de Pastas</a></li>
+            <li><a href="#pre-requisitos">Pré-requisitos</a></li>
+            <li><a href="#execucao">Comando para Executar o Script</a></li>
+            <li><a href="#comandos">O que Cada Comando Faz</a></li>
+            <li><a href="#funcionamento">Como o Script Funciona</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="estrutura" class="content-section">
+            <h2>Estrutura de Pastas</h2>
+            <pre><code>laravel-app/
+|-- /app
+|-- /bootstrap
+|-- /config
+|-- /database
+|-- /node_modules
+|-- /public
+|-- /resources
+|-- /routes
+|-- /storage
+|-- /tests
+|-- /vendor
+|-- /scripts
+|   |-- update_laravel.php // Script de atualização do Laravel
+|-- composer.json
+|-- .env
+</code></pre>
+        </section>
+
+        <section id="pre-requisitos" class="content-section">
+            <h2>Pré-requisitos</h2>
+            <ul>
+                <li><strong>PHP:</strong> O script foi desenvolvido e testado para funcionar com o PHP 8.2.12. Certifique-se de que a versão do PHP esteja instalada corretamente em seu ambiente.</li>
+                <li><strong>Composer:</strong> O Composer é necessário para gerenciar as dependências do projeto Laravel. Você pode instalá-lo com o seguinte comando:</li>
+                <pre><code>curl -sS https://getcomposer.org/installer | php</code></pre>
+                <li><strong>Git:</strong> O Git é necessário para controle de versão e gerenciamento de repositórios. Instale-o caso ainda não tenha.</li>
+            </ul>
+        </section>
+
+        <section id="execucao" class="content-section">
+            <h2>Comando para Executar o Script</h2>
+            <p>Navegue até o diretório raiz do seu projeto Laravel:</p>
+            <pre><code>cd /c/Users/SeuUsuario/Projetos/laravel-app</code></pre>
+            <p>Execute o script com o comando abaixo no terminal:</p>
+            <pre><code>php scripts/update_laravel.php</code></pre>
+        </section>
+
+        <section id="comandos" class="content-section">
+            <h2>O que Cada Comando Faz</h2>
+            <ul>
+                <li><strong>Atualização de Pacotes:</strong> O script executa o comando <code>composer update</code> para atualizar todas as dependências do projeto. Se houver erros durante a atualização, o script tenta corrigir problemas comuns de dependência ou configuração.</li>
+                <li><strong>Limpeza de Caches:</strong> O script limpa vários caches do Laravel, incluindo configuração, cache, rotas e views, usando os comandos:
+                    <pre><code>php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear</code></pre>
+                </li>
+                <li><strong>Otimização do Laravel:</strong> O script executa o comando <code>php artisan optimize</code> para otimizar os recursos do Laravel, como compilação de arquivos e cache.</li>
+                <li><strong>Execução de Migrações:</strong> O script executa o comando <code>php artisan migrate --force</code> para rodar migrações do banco de dados e garantir que a estrutura do banco esteja atualizada.</li>
+                <li><strong>Atualização de Rotas:</strong> O script executa o comando <code>php artisan route:cache</code> para garantir que as rotas estejam otimizadas.</li>
+                <li><strong>Atualização do Autoload:</strong> O script executa o comando <code>composer dump-autoload</code> para garantir que o autoload das classes esteja correto.</li>
+            </ul>
+        </section>
+
+        <section id="funcionamento" class="content-section">
+            <h2>Como o Script Funciona</h2>
+            <p>O script realiza as seguintes etapas:</p>
+            <ol>
+                <li><strong>Definição do Diretório do Projeto:</strong> O script define o diretório de trabalho do projeto Laravel usando <code>__DIR__</code>.</li>
+                <li><strong>Função <code>runCommand</code>:</strong> Executa um comando no terminal e retorna a saída do comando. Exibe o comando que está sendo executado e sua saída.</li>
+                <li><strong>Função <code>checkCommandError</code>:</strong> Verifica se a saída de um comando contém erros, procurando por palavras-chave como 'error' ou 'Exception'.</li>
+                <li><strong>Função <code>fixCommonIssues</code>:</strong> Tenta corrigir problemas comuns de dependência ou configuração:
+                    <ul>
+                        <li>Se houver um erro de dependências, executa <code>composer install</code>.</li>
+                        <li>Se houver um erro de autoload de classes, executa <code>composer dump-autoload</code>.</li>
+                        <li>Se houver problemas com o arquivo <code>.env</code>, cria um novo arquivo <code>.env</code> a partir de <code>.env.example</code>.</li>
+                    </ul>
+                </li>
+                <li><strong>Função <code>optimizeLaravel</code>:</strong> Executa o comando <code>php artisan optimize</code> para otimizar o Laravel.</li>
+                <li><strong>Função <code>runMigrations</code>:</strong> Executa o comando <code>php artisan migrate --force</code> para rodar migrações do banco de dados.</li>
+                <li><strong>Função <code>clearCaches</code>:</strong> Limpa vários caches do Laravel, incluindo configuração, cache, rotas e views, usando os comandos <code>php artisan config:clear</code>, <code>php artisan cache:clear</code>, <code>php artisan route:clear</code> e <code>php artisan view:clear</code>.</li>
+                <li><strong>Função <code>updatePackages</code>:</strong> Executa o comando <code>composer update</code> para atualizar os pacotes do Composer. Se houver erros durante a atualização, tenta corrigir os problemas comuns usando a função <code>fixCommonIssues</code>. Se os problemas não puderem ser corrigidos automaticamente, exibe um relatório de erros.</li>
+                <li><strong>Função Principal <code>updateLaravel</code>:</strong> Executa o processo completo de atualização do Laravel:
+                    <ul>
+                        <li>Atualiza pacotes e dependências.</li>
+                        <li>Limpa caches e otimiza o Laravel.</li>
+                        <li>Roda migrações do banco de dados.</li>
+                        <li>Atualiza as rotas com <code>php artisan route:cache</code>.</li>
+                        <li>Atualiza o autoload com <code>composer dump-autoload</code>.</li>
+                    </ul>
+                    Exibe uma mensagem de sucesso ao final do processo, incluindo o tempo total de execução.
+                </li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <p class="footer-text">Documentação gerada para o script de atualização Laravel. Para mais informações, consulte a documentação oficial do Laravel.</p>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
